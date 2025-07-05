@@ -1,3 +1,4 @@
+# growth-insights-kms-palmoria
 # Kultra Mega Stores (KMS) - SQL & Excel Analysis Results
 
 ## 📁 Project Overview
