@@ -149,12 +149,21 @@ ORDER BY order_priority, cost DESC;
 ## 🤔 Case Scenario II - Palmoria Group HR Analysis (Excel)
 
 **File**: `Palmoria_HR.xlsx`  
-[🔗 View the file (OneDrive)](https://1drv.ms/x/c/86640da3c29c30b7/EYJnZ38DathDjcSv8mN16FIBCJ2-b6pvt9nzzDxiX4fNEA?e=EedBHu)
+[Download Excel File](https://1drv.ms/x/c/86640da3c29c30b7/EYJnZ38DathDjcSv8mN16FIBCJ2-b6pvt9nzzDxiX4fNEA)
 
 ### 🔍 Objectives
 - Explore gender balance across departments
 - Analyze regional workforce distribution
 - Visualize employee segmentation using dashboards
+
+### 📸 Screenshots & Pivot Visualizations
+1. [Gender by Department & Location](https://drive.google.com/file/d/1ILBKXfw96esV8nLZIBp2gPtFJfVJr9OD/view?usp=drivesdk)
+2. [Performance Rating by Gender](https://drive.google.com/file/d/1G_x4o0qy7-Z3KSvsYUBvueIZYC2Pz4IX/view?usp=drivesdk)
+3. [Average Rating Score by Gender](https://drive.google.com/file/d/1rHriBe0G6lWm9-TPPONlKRRGqC9BpAIp/view?usp=drivesdk)
+4. [Average Salary by Gender](https://drive.google.com/file/d/1ONp12aphJD_-Kbwh_WwZzZ7sCVBnIldK/view?usp=drivesdk)
+5. [Salary Brackets by Region](https://drive.google.com/file/d/1HFhMnhZCFnNsS9YApO03U6D4A6_tcf8W/view?usp=drivesdk)
+6. [Total Compensation & Bonus by Region](https://drive.google.com/file/d/1EsjNVX0yCgvaa7jKiu7V1i2lRBZtKxZH/view?usp=drivesdk)
+7. [Rating Score by Department](https://drive.google.com/file/d/1dP61awzF9nKcuwM7gQEOc_BcQCGqrI8G/view?usp=drivesdk)
 
 ### 📊 Tools Used
 - Microsoft Excel
@@ -187,13 +196,12 @@ ORDER BY order_priority, cost DESC;
 - Monitor high shipping costs periodically
 - Align delivery modes with order priority
 - **Assessment**:
-- High-priority orders used *Express Air* heavily → aligns with urgency
-- Low-priority orders used *Delivery Truck* → cost-efficient
+  - High-priority orders used *Express Air* heavily → aligns with urgency
+  - Low-priority orders used *Delivery Truck* → cost-efficient
 
 **Conclusion**: Shipping costs were appropriately aligned with priority levels.
 
 ---
-
 
 ### From Palmoria Group (HR):
 - Improve gender diversity in skewed departments
