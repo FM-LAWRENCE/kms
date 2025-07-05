@@ -1,13 +1,16 @@
-# Kultra Mega Stores (KMS) - SQL Analysis Results
+# Kultra Mega Stores (KMS) - SQL & Excel Analysis Results
 
 ## 📁 Project Overview
-Kultra Mega Stores (KMS), headquartered in Lagos, Nigeria, is a supplier of office supplies and furniture. This project focuses on the Abuja division, analyzing historical sales data from **2009 to 2012**.
+This project combines insights from two major business intelligence analyses:
 
-The goal is to derive insights that can help improve decision-making and revenue growth.
+1. **Kultra Mega Stores (KMS)** – Office supply sales in Abuja (2009–2012)
+2. **Palmoria Group** – HR data analysis across departments and regions in Nigeria
+
+These analyses were conducted using SQL and Excel respectively to support data-driven decisions and guide organizational strategy and growth.
 
 ---
 
-## 🤔 Case Scenario I - Sales & Shipping Performance
+## 🤔 Case Scenario I - KMS Sales & Shipping Performance (SQL)
 
 ### 1. **Which product category had the highest sales?**
 ```sql
@@ -18,8 +21,6 @@ ORDER BY total_sales DESC
 LIMIT 1;
 ```
 **Result**: *Technology* had the highest total sales (₦5,984,248.18).
-
----
 
 ### 2. **Top 3 and Bottom 3 regions in terms of sales**
 ```sql
@@ -32,8 +33,6 @@ ORDER BY total_sales DESC;
 - **Top 3**: West (₦3,597,549.27), Ontario (₦3,063,212.48), Prarie (₦2,837,304.61)
 - **Bottom 3**: Nunavut (₦116,376.48), Northwest Territories (₦800,847.33), Yukon (₦975,867.38)
 
----
-
 ### 3. **Total sales of appliances in Ontario**
 ```sql
 SELECT SUM(sales) AS appliance_sales_ontario
@@ -41,8 +40,6 @@ FROM orders_data
 WHERE category = 'Appliances' AND region = 'Ontario';
 ```
 **Result**: ₦202,346.84
-
----
 
 ### 4. **Advice to increase revenue from bottom 10 customers**
 ```sql
@@ -57,8 +54,6 @@ LIMIT 10;
 - Follow-up with satisfaction surveys
 - Assign relationship managers to drive upsells
 
----
-
 ### 5. **Most expensive shipping method**
 ```sql
 SELECT ship_mode, SUM(shipping_cost) AS total_cost
@@ -69,45 +64,8 @@ LIMIT 1;
 ```
 **Result**: *Delivery Truck* incurred the highest shipping cost (₦51,971.94).
 
----
-
-### 6. **Shipping cost breakdown by Order Priority and Ship Mode**
+### 6. **Most valuable customers and their typical purchases**
 ```sql
-SELECT [Order_Priority], [Ship_Mode],
-       COUNT(*) AS OrderCount,
-       SUM([Shipping_Cost]) AS TotalShippingCost,
-       AVG([Shipping_Cost]) AS AvgShippingCost
-FROM orders_data
-GROUP BY [Order_Priority], [Ship_Mode]
-ORDER BY [Order_Priority], [Ship_Mode];
-```
-**Result Summary**:
-
-| Order Priority   | Ship Mode       | Order Count | Total Shipping Cost | Avg Shipping Cost |
-|------------------|------------------|--------------|----------------------|--------------------|
-| Critical         | Delivery Truck   | 228          | ₦10,783.82         | ₦47.30            |
-| Critical         | Express Air      | 200          | ₦1,742.10          | ₦8.71             |
-| Critical         | Regular Air      | 1,180        | ₦8,586.76          | ₦7.28             |
-| High             | Delivery Truck   | 248          | ₦11,206.88         | ₦45.19            |
-| High             | Express Air      | 212          | ₦1,453.53          | ₦6.86             |
-| High             | Regular Air      | 1,308        | ₦10,005.01         | ₦7.65             |
-| Low              | Delivery Truck   | 250          | ₦11,131.61         | ₦44.53            |
-| Low              | Express Air      | 190          | ₦1,551.63          | ₦8.17             |
-| Low              | Regular Air      | 1,280        | ₦10,263.62         | ₦8.02             |
-| Medium           | Delivery Truck   | 205          | ₦9,461.62          | ₦46.15            |
-| Medium           | Express Air      | 201          | ₦1,633.59          | ₦8.13             |
-| Medium           | Regular Air      | 1,225        | ₦9,418.72          | ₦7.69             |
-| Not Specified    | Delivery Truck   | 215          | ₦9,388.01          | ₦43.67            |
-| Not Specified    | Express Air      | 180          | ₦1,470.06          | ₦8.17             |
-| Not Specified    | Regular Air      | 1,277        | ₦9,734.08          | ₦7.62             |
-
----
-
-## 🤔 Case Scenario II - Customer Value & Behavior
-
-### 7. **Most valuable customers and their typical purchases**
-```sql
--- Ranked top customers with formatted Naira sales
 SELECT 
   RANK() OVER (ORDER BY SUM(Sales) DESC) AS [Rank],
   Customer_Name,
@@ -120,7 +78,6 @@ ORDER BY
   SUM(Sales) DESC;
 ```
 **Top 5 Customers**:
-
 | Rank | Customer Name         | Total Sales (₦) |
 | ---- | --------------------- | ---------------- |
 | 1    | Emily Phan            | ₦117,124.44      |
@@ -129,18 +86,7 @@ ORDER BY
 | 4    | Sylvia Foulston       | ₦88,875.76       |
 | 5    | Grant Carroll         | ₦88,417.00       |
 
-```sql
--- Products they buy:
-SELECT category, COUNT(*) AS purchase_count
-FROM orders_data
-WHERE customer_name = 'Emily Phan' -- Replace with actual top customer
-GROUP BY category;
-```
-**Result**: Top customers tend to purchase *Technology* and *Office Supplies*.
-
----
-
-### 8. **Small business customer with highest sales**
+### 7. **Small business customer with highest sales**
 ```sql
 SELECT customer_name, SUM(sales) AS total_sales
 FROM orders_data
@@ -151,9 +97,7 @@ LIMIT 1;
 ```
 **Result**: *Dennis Kane* with total sales of ₦75,967.59
 
----
-
-### 9. **Corporate customer with most orders (2009–2012)**
+### 8. **Corporate customer with most orders (2009–2012)**
 ```sql
 SELECT customer_name, COUNT(order_id) AS order_count
 FROM orders_data
@@ -164,9 +108,7 @@ LIMIT 1;
 ```
 **Result**: *Adam Hart* with 27 orders
 
----
-
-### 10. **Most profitable consumer customer**
+### 9. **Most profitable consumer customer**
 ```sql
 SELECT customer_name, SUM(profit) AS total_profit
 FROM orders_data
@@ -177,19 +119,15 @@ LIMIT 1;
 ```
 **Result**: *Emily Phan* with a total profit of ₦34,005.44
 
----
-
-### 11. **Customers who made loss-generating purchases and their segments**
+### 10. **Customers who made loss-generating purchases and their segments**
 ```sql
 SELECT DISTINCT customer_name, segment
 FROM orders_data
 WHERE profit < 0 OR sales < 0;
 ```
-**Result**: Numerous customers across all segments (Corporate, Home Office, Consumer, Small Business) made purchases resulting in losses.
+**Result**: Customers from all segments made loss-generating purchases.
 
----
-
-### 12. **Shipping method vs. Order Priority assessment**
+### 11. **Shipping method vs. Order Priority assessment**
 ```sql
 SELECT order_priority, ship_mode, COUNT(*) AS orders, SUM(shipping_cost) AS cost
 FROM orders_data
@@ -197,6 +135,57 @@ GROUP BY order_priority, ship_mode
 ORDER BY order_priority, cost DESC;
 ```
 **Assessment**:
+- High-priority orders used *Express Air* → aligns with urgency
+- Low-priority orders used *Delivery Truck* → cost-efficient
+
+**Growth Insight**:
+- Consider optimizing logistics for Critical and High priority orders.
+- Build loyalty programs around top-performing customers and segments.
+- Expand successful product categories into underperforming regions.
+
+---
+
+## 🤔 Case Scenario II - Palmoria Group HR Analysis (Excel)
+
+**File**: `Palmoria_HR.xlsx`  
+[🔗 View the file (OneDrive)](https://1drv.ms/x/c/86640da3c29c30b7/EYJnZ38DathDjcSv8mN16FIBCJ2-b6pvt9nzzDxiX4fNEA?e=EedBHu)
+
+### 🔍 Objectives
+- Explore gender balance across departments
+- Analyze regional workforce distribution
+- Visualize employee segmentation using dashboards
+
+### 📊 Tools Used
+- Microsoft Excel
+  - Functions: `IF`, `COUNTIF`, `VLOOKUP`
+  - PivotTables
+  - Bar, Pie, and Clustered Charts
+
+### 📈 Key Insights
+- Notable gender gaps exist in the Technical and Manufacturing departments.
+- Female representation is stronger in Human Resources and Administration.
+- Northern and Eastern zones show uneven departmental spread.
+
+### 📌 Recommendations
+- Promote inclusive hiring policies in male-dominated roles.
+- Balance departmental staffing across zones for operational efficiency.
+- Implement diversity dashboards to monitor progress.
+
+**Growth-Driven Outlook**:
+- Data shows readiness for strategic HR transformation.
+- Integrating Excel dashboards into monthly reviews can highlight trends early.
+- Use insights for employee retention and equitable promotions.
+
+---
+
+## 📌 Summary of Recommendations
+
+### From KMS (Sales & Shipping):
+- Focus marketing on high-performing categories (e.g., Technology)
+- Target bottom-tier customers for engagement
+- Monitor high shipping costs periodically
+- Align delivery modes with order priority
+- **Assessment**:
 - High-priority orders used *Express Air* heavily → aligns with urgency
 - Low-priority orders used *Delivery Truck* → cost-efficient
 
@@ -204,25 +193,18 @@ ORDER BY order_priority, cost DESC;
 
 ---
 
-## 📌 Summary of Recommendations
-- Focus marketing on top product categories (e.g., Technology)
-- Improve loyalty initiatives for small and bottom-tier customers
-- Audit high-cost shipping methods periodically
-- Optimize delivery routes for low-priority orders
-- Investigate loss-making sales and customers
+
+### From Palmoria Group (HR):
+- Improve gender diversity in skewed departments
+- Use Excel dashboards for real-time HR tracking
+- Inform policy with regional and departmental workforce trends
 
 ---
 
-## 📊 Tools Used
-- SQL (SQL Server / PostgreSQL syntax)
-- Excel (for initial exploration)
-
----
-
-## 📂 Files
-- `/sql_queries/`: Contains `.sql` files used in analysis
-- `/results/`: Summary tables and visualizations (optional for Power BI/Excel)
-- `README.md`: Project documentation
+## 📂 Tools & Files
+- **SQL & Excel**: Used for querying and data visualization
+- `Palmoria_HR.xlsx`: Excel-based HR dashboard
+- `/sql_queries/`: SQL scripts from KMS analysis
 
 ---
 
@@ -231,7 +213,5 @@ ORDER BY order_priority, cost DESC;
 Business Intelligence Analyst  
 📧 utuedeyelawrence@gmail.com  
 📍 Lagos, Nigeria
-
----
 
 > "Transforming data into decisions that drive growth."
